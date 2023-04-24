@@ -44,7 +44,7 @@ public class DiabeticRecipes extends ExcelWriter {
 				js.executeScript("window.scrollBy(0,250)", "");
 				driver.findElement(By.xpath("(//span[@class='rcc_recipename'])[" + i + "]")).click();
 				String ingredient = driver.findElement(By.xpath("//div[@id='rcpinglist']")).getText();
-				ingredientList.add(ingredient);
+				//ingredientList.add(ingredient);
 				System.out.println("ingredient------>>" + ingredient);
 				// ingredient = ingredientList.get(i).toString();
 				if ((ingredient.contains("rice") || ingredient.contains("corn") || ingredient.contains("curd")
@@ -111,7 +111,7 @@ public class DiabeticRecipes extends ExcelWriter {
                     catch(Exception e) {
                     	NutrientList.add("NA");
                     }
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 					driver.navigate().back();
 					Thread.sleep(1000);
 					String recipeID = driver
