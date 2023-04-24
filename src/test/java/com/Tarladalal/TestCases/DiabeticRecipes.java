@@ -2,6 +2,7 @@ package com.Tarladalal.TestCases;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -26,6 +27,8 @@ public class DiabeticRecipes extends ExcelWriter {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.manage().window().maximize();
 		driver.get("https://www.tarladalal.com/");
+		//driver.manage().timeouts().pageLoadTimeout(10 ,TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(10 ,TimeUnit.SECONDS);
 	}
 
 	@Test
@@ -34,8 +37,7 @@ public class DiabeticRecipes extends ExcelWriter {
 		driver.findElement(By.xpath("//input[@class='txtsearch']")).sendKeys(Keys.ENTER);
 		List<WebElement> linkSize = driver.findElements(By.xpath("//div[@class='rcc_rcpcore']/span/a"));
 		linksCount = linkSize.size();
-		System.out.println("linksCount--->>" + linksCount);
-		for (int j = 1; j < 6; j++) {
+		for (int j = 1; j <= 5; j++) {
 			driver.findElement(By.xpath("(//a[text()='" + j + "'])[1]")).click();
 			for (int i = 1; i <= linksCount; i++) {
 				JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -83,6 +85,11 @@ public class DiabeticRecipes extends ExcelWriter {
 					// break;
 				} else {
 					ingredientList.add(ingredient);
+					
+					String currentURL = driver.getCurrentUrl();
+					 RecipeLink.add(currentURL); 
+					 System.out.println(currentURL);
+					 Thread.sleep(1000);
 					System.out.println("Inside else loop****" + ingredientList.size());
 					String PrepTime = driver.findElement(By.xpath("//p//time[1]")).getText();
 					prepTimeList.add(PrepTime);
@@ -94,7 +101,19 @@ public class DiabeticRecipes extends ExcelWriter {
 					MethodList.add(Method);
 					System.out.println(Method);
 					js.executeScript("window.scrollBy(0,5000)", "");
+					Thread.sleep(2000);
+					
+                    try {
+					String NutrientsValue = driver.findElement(By.xpath("//table[@id='rcpnutrients']/tbody")).getText();
+					NutrientList.add(NutrientsValue);
+					System.out.println(NutrientsValue);
+                    }
+                    catch(Exception e) {
+                    	NutrientList.add("NA");
+                    }
+					Thread.sleep(2000);
 					driver.navigate().back();
+					Thread.sleep(1000);
 					String recipeID = driver
 							.findElement(By.xpath("//div[@class='rcc_recipecard'][" + i + "]/div[2]/span ")).getText();
 					recipeidList.add(recipeID);
@@ -104,6 +123,10 @@ public class DiabeticRecipes extends ExcelWriter {
 					recipeNameList.add(recipeName);
 					System.out.println(recipeName);
 					Thread.sleep(1000);
+					
+
+					
+					 
 				}
 				// driver.findElement(By.xpath("(//a[text()='" + j + "'])[1]")).click();
 				System.out.println("Page Number is : " + j);
