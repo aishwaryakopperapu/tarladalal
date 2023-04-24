@@ -25,7 +25,7 @@ public class ExcelWriter {
 	public static ArrayList<String> cookTimeList = new ArrayList<String>();
 	public static ArrayList<String> MethodList = new ArrayList<String>();
 	public static ArrayList<String> NutrientList = new ArrayList<String>();
-
+	public static ArrayList<String> RecipeLink = new ArrayList<String>();
 	public static void writeExcelSheet() {
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		XSSFSheet sheet = workbook.createSheet("Sheet01");
@@ -56,12 +56,14 @@ public class ExcelWriter {
 				row.createCell(5).setCellValue(prepTimeList.get(i).toString());
 				row.createCell(6).setCellValue(cookTimeList.get(i).toString());
 				row.createCell(7).setCellValue(MethodList.get(i).toString());
+				row.createCell(8).setCellValue(NutrientList.get(i).toString());
+				row.createCell(10).setCellValue(RecipeLink.get(i).toString());
 			}
 
 		}
 		// creates demo file in the folder
 		
-		String path = System.getProperty("user.dir") + "/src/test/resources/RecipeBook/UpdatedDiabeticRecipes.xlsx";
+		String path = System.getProperty("user.dir") + "/src/test/resources/RecipeBook/UpdatedDiabeticRecipes5.xlsx";
 		File excelFile = new File(path);
 		FileOutputStream Fos = null;
 		try {
